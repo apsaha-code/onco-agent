@@ -1,0 +1,344 @@
+/* ── Reset & base ───────────────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-size: 14px;
+  line-height: 1.55;
+  background: #f4f6f9;
+  color: #1a1f2e;
+}
+
+/* ── Header ─────────────────────────────────────────────────────────────────── */
+header {
+  background: #0f172a;
+  color: #e2e8f0;
+  padding: 16px 24px;
+}
+.header-inner {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+header h1 { font-size: 1.4rem; color: #f8fafc; }
+.subtitle { color: #94a3b8; font-size: 0.82rem; flex: 1; }
+.badge-demo {
+  background: #dc2626;
+  color: #fff;
+  font-size: 0.6rem;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: 4px;
+  vertical-align: middle;
+  letter-spacing: 0.05em;
+}
+.header-actions { display: flex; gap: 8px; }
+
+/* ── Disclaimer ─────────────────────────────────────────────────────────────── */
+.disclaimer {
+  background: #fef9c3;
+  border-left: 4px solid #eab308;
+  padding: 10px 24px;
+  font-size: 0.82rem;
+  color: #713f12;
+}
+
+/* ── Layout ─────────────────────────────────────────────────────────────────── */
+main.layout {
+  display: grid;
+  grid-template-columns: 340px 1fr;
+  gap: 20px;
+  max-width: 1400px;
+  margin: 20px auto;
+  padding: 0 16px 40px;
+}
+@media (max-width: 900px) {
+  main.layout { grid-template-columns: 1fr; }
+}
+
+/* ── Panels ─────────────────────────────────────────────────────────────────── */
+.panel {
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+  padding: 20px;
+}
+.panel h2 {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 14px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid #e2e8f0;
+  color: #0f172a;
+}
+
+/* ── Form elements ──────────────────────────────────────────────────────────── */
+fieldset {
+  border: 1px solid #e2e8f0;
+  border-radius: 7px;
+  padding: 12px 14px;
+  margin-bottom: 14px;
+}
+legend {
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #64748b;
+  padding: 0 4px;
+}
+.form-group { margin-bottom: 10px; }
+.form-group label {
+  display: block;
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: #475569;
+  margin-bottom: 3px;
+}
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  border: 1px solid #cbd5e1;
+  border-radius: 5px;
+  padding: 6px 9px;
+  font-size: 0.85rem;
+  color: #1a1f2e;
+  background: #f8fafc;
+  transition: border-color 0.15s;
+}
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+  outline: none;
+  border-color: #3b82f6;
+  background: #fff;
+}
+.form-group textarea { resize: vertical; }
+.checkbox-group label { display: flex; align-items: center; gap: 6px; cursor: pointer; }
+
+/* ── Buttons ────────────────────────────────────────────────────────────────── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.83rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s, opacity 0.15s;
+}
+.btn-primary { background: #2563eb; color: #fff; }
+.btn-primary:hover { background: #1d4ed8; }
+.btn-primary:disabled { opacity: 0.5; cursor: not-allowed; }
+.btn-outline { background: transparent; color: #cbd5e1; border: 1px solid #334155; }
+.btn-outline:hover { background: #1e293b; color: #f1f5f9; }
+.btn-ghost { background: #f1f5f9; color: #475569; }
+.btn-ghost:hover { background: #e2e8f0; }
+.form-actions { display: flex; gap: 10px; margin-top: 16px; }
+
+/* ── Placeholder & spinner ──────────────────────────────────────────────────── */
+.placeholder {
+  text-align: center;
+  color: #94a3b8;
+  padding: 60px 20px;
+  font-size: 0.9rem;
+}
+.spinner { text-align: center; padding: 60px 20px; color: #64748b; }
+.spinner-ring {
+  display: inline-block;
+  width: 40px; height: 40px;
+  border: 4px solid #e2e8f0;
+  border-top-color: #2563eb;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  margin-bottom: 12px;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* ── Error box ──────────────────────────────────────────────────────────────── */
+.error-box {
+  background: #fef2f2;
+  border: 1px solid #fca5a5;
+  color: #7f1d1d;
+  border-radius: 7px;
+  padding: 16px;
+  margin-top: 16px;
+  white-space: pre-wrap;
+  font-size: 0.82rem;
+}
+
+/* ── Patient summary ────────────────────────────────────────────────────────── */
+.patient-summary {
+  background: #f0f9ff;
+  border-left: 4px solid #0ea5e9;
+  padding: 10px 14px;
+  border-radius: 5px;
+  font-size: 0.88rem;
+  color: #0c4a6e;
+  margin-bottom: 20px;
+  font-style: italic;
+}
+
+/* ── Biomarker cards ────────────────────────────────────────────────────────── */
+.biomarker-cards { display: flex; flex-direction: column; gap: 12px; margin-bottom: 24px; }
+.biomarker-card {
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 14px;
+}
+.biomarker-card-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+.biomarker-name { font-weight: 700; font-size: 0.98rem; }
+.tag {
+  font-size: 0.68rem;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 99px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.tag-targetable   { background: #dcfce7; color: #166534; }
+.tag-predictive   { background: #dbeafe; color: #1e40af; }
+.tag-prognostic   { background: #fef9c3; color: #713f12; }
+.tag-not-actionable { background: #f1f5f9; color: #64748b; }
+.tag-evidence-high   { background: #f0fdf4; color: #15803d; border: 1px solid #86efac; }
+.tag-evidence-moderate { background: #fffbeb; color: #92400e; border: 1px solid #fde68a; }
+.tag-evidence-low    { background: #fff1f2; color: #9f1239; border: 1px solid #fecaca; }
+.biomarker-summary { font-size: 0.85rem; color: #334155; margin-bottom: 6px; }
+.biomarker-trials { font-size: 0.78rem; color: #64748b; }
+.biomarker-trials a { color: #2563eb; text-decoration: none; }
+.biomarker-trials a:hover { text-decoration: underline; }
+.limitations-list { margin-top: 6px; font-size: 0.78rem; color: #92400e; }
+.limitations-list li { margin-left: 16px; }
+
+/* ── Treatment recommendations ──────────────────────────────────────────────── */
+.treatment-list { display: flex; flex-direction: column; gap: 12px; margin-bottom: 24px; }
+
+.treatment-card {
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.treatment-card-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  cursor: pointer;
+  background: #f8fafc;
+  user-select: none;
+}
+.treatment-card-header:hover { background: #f1f5f9; }
+.rank-badge {
+  font-size: 0.8rem;
+  font-weight: 700;
+  background: #0f172a;
+  color: #f8fafc;
+  width: 28px; height: 28px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.rank-1 { background: #b45309; }
+.rank-2 { background: #475569; }
+.rank-3 { background: #854d0e; }
+.treatment-name { font-weight: 700; font-size: 0.95rem; flex: 1; }
+.score-badge {
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 3px 9px;
+  border-radius: 99px;
+  background: #dcfce7;
+  color: #166534;
+  flex-shrink: 0;
+}
+.score-low { background: #fef2f2; color: #b91c1c; }
+.score-mid { background: #fffbeb; color: #92400e; }
+.category-tag { font-size: 0.72rem; color: #64748b; }
+.chevron { margin-left: auto; transition: transform 0.2s; font-size: 0.8rem; color: #94a3b8; }
+.treatment-card.expanded .chevron { transform: rotate(180deg); }
+
+.treatment-card-body {
+  display: none;
+  padding: 14px;
+  border-top: 1px solid #e2e8f0;
+  background: #fff;
+}
+.treatment-card.expanded .treatment-card-body { display: block; }
+
+.section-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #64748b;
+  margin-top: 12px;
+  margin-bottom: 6px;
+}
+.why-list { padding-left: 18px; font-size: 0.84rem; color: #334155; }
+.why-list li { margin-bottom: 3px; }
+
+.evidence-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.78rem;
+  margin-top: 4px;
+}
+.evidence-table th {
+  background: #f1f5f9;
+  padding: 5px 8px;
+  text-align: left;
+  font-weight: 600;
+  color: #475569;
+  border: 1px solid #e2e8f0;
+}
+.evidence-table td {
+  padding: 5px 8px;
+  border: 1px solid #e2e8f0;
+  color: #1a1f2e;
+  vertical-align: top;
+}
+.evidence-table a { color: #2563eb; text-decoration: none; }
+.evidence-table a:hover { text-decoration: underline; }
+
+.rationale-block {
+  font-size: 0.84rem;
+  color: #334155;
+  background: #f8fafc;
+  border-left: 3px solid #e2e8f0;
+  padding: 8px 12px;
+  border-radius: 0 5px 5px 0;
+  margin-top: 4px;
+}
+
+.score-row { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 4px; }
+.score-item {
+  font-size: 0.75rem;
+  background: #f1f5f9;
+  padding: 3px 8px;
+  border-radius: 5px;
+  color: #475569;
+}
+
+/* ── Global limitations ─────────────────────────────────────────────────────── */
+.global-limitations {
+  background: #fff7ed;
+  border: 1px solid #fed7aa;
+  border-radius: 7px;
+  padding: 12px 16px;
+  font-size: 0.8rem;
+  color: #7c2d12;
+  margin-top: 8px;
+}
+.global-limitations ul { padding-left: 18px; }
+.global-limitations li { margin-bottom: 3px; }

@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Onco Agent – NSCLC Decision Support Demo</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="header-inner">
+      <h1>Onco Agent <span class="badge-demo">DEMO</span></h1>
+      <p class="subtitle">Metastatic NSCLC decision-support · research &amp; educational use only</p>
+      <div class="header-actions">
+        <button id="btn-load-kras" class="btn btn-outline">Example: KRAS G12C NSCLC</button>
+        <button id="btn-load-random" class="btn btn-outline">Random NSCLC case</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Disclaimer banner -->
+  <div class="disclaimer">
+    <strong>Disclaimer:</strong> This tool is for research and educational demonstrations only.
+    It does <em>not</em> provide medical advice or treatment recommendations.
+    Always consult qualified clinicians and current NCCN/ESMO guidelines.
+  </div>
+
+  <main class="layout">
+
+    <!-- ── Left: Patient input form ─────────────────────────────────── -->
+    <section class="panel panel-input">
+      <h2>Patient Profile</h2>
+
+      <div class="form-group">
+        <label>Age</label>
+        <input type="number" id="age" value="62" min="18" max="100" />
+      </div>
+      <div class="form-group">
+        <label>Sex</label>
+        <select id="sex">
+          <option value="female">Female</option>
+          <option value="male">Male</option>
+        </select>
+      </div>
+
+      <fieldset>
+        <legend>Disease</legend>
+        <div class="form-group">
+          <label>Cancer type</label>
+          <input type="text" id="cancer_type" value="NSCLC" />
+        </div>
+        <div class="form-group">
+          <label>Histology</label>
+          <input type="text" id="histology" value="adenocarcinoma" />
+        </div>
+        <div class="form-group">
+          <label>Stage</label>
+          <select id="stage">
+            <option value="IV" selected>IV</option>
+            <option value="III">III</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Line of therapy</label>
+          <select id="line_of_therapy">
+            <option value="first-line">First-line</option>
+            <option value="second-line" selected>Second-line</option>
+            <option value="third-line">Third-line</option>
+          </select>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Biomarkers</legend>
+        <div class="form-group">
+          <label>PD-L1 TPS (%)</label>
+          <input type="number" id="pdl1_tps_percent" value="80" min="0" max="100" />
+        </div>
+        <div class="form-group">
+          <label>TMB (mut/Mb)</label>
+          <input type="number" id="tmb_mut_per_mb" value="12" min="0" />
+        </div>
+        <div class="form-group">
+          <label>Biomarkers (one per line: GENE VARIANT TYPE ASSAY)</label>
+          <textarea id="biomarkers_raw" rows="4">KRAS G12C SNV NGS
+TP53 unknown SNV NGS</textarea>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Status</legend>
+        <div class="form-group">
+          <label>ECOG PS</label>
+          <select id="ecog">
+            <option value="0">0</option>
+            <option value="1" selected>1</option>
+            <option value="2">2</option>
+          </select>
+        </div>
+        <div class="form-group checkbox-group">
+          <label><input type="checkbox" id="brain_mets" /> Brain metastases</label>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Treatment history (one per line: REGIMEN | RESPONSE | PFS_MONTHS)</legend>
+        <textarea id="treatment_history_raw" rows="3">Carboplatin + pemetrexed | PR | 4</textarea>
+      </fieldset>
+
+      <fieldset>
+        <legend>Concomitant medications (comma-separated)</legend>
+        <input type="text" id="concomitant_meds" value="Omeprazole, Lisinopril, Metformin" />
+      </fieldset>
+
+      <div class="form-group">
+        <label>Max treatment options</label>
+        <select id="max_options">
+          <option value="3">3</option>
+          <option value="5" selected>5</option>
+        </select>
+      </div>
+
+      <div class="form-actions">
+        <button id="btn-analyze" class="btn btn-primary">Run analysis</button>
+        <button id="btn-reset" class="btn btn-ghost">Reset</button>
+      </div>
+    </section>
+
+    <!-- ── Right: Results ────────────────────────────────────────────── -->
+    <section class="panel panel-results" id="results-panel">
+      <div id="results-placeholder" class="placeholder">
+        <p>Results will appear here after you run an analysis.</p>
+      </div>
+
+      <div id="results-content" style="display:none;">
+        <div id="patient-summary-box" class="patient-summary"></div>
+
+        <!-- Panel A: Biomarker interpretations -->
+        <h2>Biomarker Interpretation</h2>
+        <div id="biomarker-cards"></div>
+
+        <!-- Panel B: Treatment recommendations -->
+        <h2>Ranked Treatment Options</h2>
+        <div id="treatment-list"></div>
+
+        <!-- Global limitations -->
+        <div id="global-limitations" class="global-limitations"></div>
+      </div>
+
+      <div id="loading-spinner" class="spinner" style="display:none;">
+        <div class="spinner-ring"></div>
+        <p>Running analysis… this may take 20–60 seconds.</p>
+      </div>
+
+      <div id="error-box" class="error-box" style="display:none;"></div>
+    </section>
+
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
