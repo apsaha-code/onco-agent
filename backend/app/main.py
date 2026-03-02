@@ -1,6 +1,8 @@
 from __future__ import annotations
+from pathlib import Path
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
 
 from .schemas import (
     AnalyzePatientRequest,
@@ -21,7 +23,6 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
 
 # ── Health & connectivity ──────────────────────────────────────────────────────
 
@@ -116,3 +117,8 @@ async def analyze_patient(req: AnalyzePatientRequest):
             "Always cross-check with NCCN/ESMO guidelines and qualified clinical judgement.",
         ],
     )
+
+
+# ── Frontend (must be last so API routes take priority) ───────────────────────
+_web_dir = Path(__file__).parent.parent.parent / "web"
+app.mount("/", StaticFiles(directory=_web_dir, html=True), name="frontend")

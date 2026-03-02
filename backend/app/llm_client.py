@@ -23,9 +23,11 @@ class LLMClient:
             return self._openai(messages, m, temperature, max_tokens)
         elif p == "anthropic":
             return self._anthropic(messages, m, temperature, max_tokens)
+        elif p == "gemini":
+            return self._gemini(messages, m, temperature, max_tokens)
         else:
             raise ValueError(
-                f"Unknown provider '{p}'. Configure LLM_PROVIDER, OPENAI_API_KEY, or ANTHROPIC_API_KEY."
+                f"Unknown provider '{p}'. Configure LLM_PROVIDER, OPENAI_API_KEY, ANTHROPIC_API_KEY, or GEMINI_API_KEY."
             )
 
     # ── OpenAI ─────────────────────────────────────────────────────────────────
@@ -69,6 +71,37 @@ class LLMClient:
 
         response = client.messages.create(**kwargs)
         return response.content[0].text  # type: ignore[union-attr]
+
+    # ── Gemini ─────────────────────────────────────────────────────────────────
+
+    def _gemini(
+        self, messages: MessageList, model: str, temperature: float, max_tokens: int
+    ) -> str:
+        from google import genai
+        from google.genai import types
+
+        client = genai.Client(api_key=settings.gemini_api_key)
+
+        # Split system prompt; Gemini uses a separate system_instruction param
+        system_parts = [m["content"] for m in messages if m["role"] == "system"]
+        non_system = [m for m in messages if m["role"] != "system"]
+        system_text = "\n\n".join(system_parts) if system_parts else None
+
+        contents = [
+            types.Content(role=m["role"], parts=[types.Part(text=m["content"])])
+            for m in non_system
+        ]
+
+        config = types.GenerateContentConfig(
+            temperature=temperature,
+            max_output_tokens=max_tokens,
+            system_instruction=system_text,
+        )
+
+        response = client.models.generate_content(
+            model=model, contents=contents, config=config
+        )
+        return response.text or ""
 
 
 llm_client = LLMClient()
